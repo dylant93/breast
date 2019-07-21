@@ -229,7 +229,7 @@ def train(img_dir, model_dir, img_size=64, colour_channels=3, batch_size=128, tr
     accuracy = calculate_accuracy(logits, y_true)
 
     summary_op = tf.summary.merge_all()
-    saver = tf.train.Saver(save_relative_paths=True))
+    saver = tf.train.Saver(save_relative_paths=True)
     writer = tf.summary.FileWriter(log_dir, graph=tf.get_default_graph())
 
     with tf.Session() as sess:
