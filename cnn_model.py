@@ -275,7 +275,7 @@ def predict(img_dir, model_dir, img_size=64, colour_channels=3, batch_size=1):
 
     with tf.Session() as sess:
 
-        saver = tf.train.Saver(save_relative_paths=True))
+        saver = tf.train.Saver(save_relative_paths=True)
         restore_or_initialize(sess, saver, checkpoint_dir)
 
         x_predict_batch, y_predict_batch, _, cls_predict_batch = data.train.next_batch(batch_size=1)
