@@ -5,9 +5,9 @@
 from FileSystemManager import FileSystemManager
 from DownloadManager import DownloadManager
 #from cnn_model import train, predict
-from cnn_model import train
-#from alex_model import train,predict
-from mymodel import predict
+#from cnn_model import train
+from alex_model2 import train,predict
+#from mymodel import predict
 
 from sys_utils import graceful_exit
 import logging
