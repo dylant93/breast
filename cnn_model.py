@@ -211,7 +211,7 @@ def restore_or_initialize(session, saver, checkpoint_dir):
         tf.global_variables_initializer().run()
 
 
-def train(img_dir, model_dir, img_size=64, colour_channels=3, batch_size=128, training_epochs=50):
+def train(img_dir, model_dir, img_size=64, colour_channels=3, batch_size=128, training_epochs=10):
 
     log_dir = os.path.join(os.path.abspath(model_dir), 'tensorflow/cnn/logs/cnn_with_summaries')
     checkpoint_dir = os.path.join(os.path.abspath(model_dir), 'tensorflow/cnn/model')
@@ -229,7 +229,7 @@ def train(img_dir, model_dir, img_size=64, colour_channels=3, batch_size=128, tr
     accuracy = calculate_accuracy(logits, y_true)
 
     summary_op = tf.summary.merge_all()
-    saver = tf.train.Saver()
+    saver = tf.train.Saver(save_relative_paths=True))
     writer = tf.summary.FileWriter(log_dir, graph=tf.get_default_graph())
 
     with tf.Session() as sess:
@@ -275,7 +275,7 @@ def predict(img_dir, model_dir, img_size=64, colour_channels=3, batch_size=1):
 
     with tf.Session() as sess:
 
-        saver = tf.train.Saver()
+        saver = tf.train.Saver(save_relative_paths=True))
         restore_or_initialize(sess, saver, checkpoint_dir)
 
         x_predict_batch, y_predict_batch, _, cls_predict_batch = data.train.next_batch(batch_size=1)
