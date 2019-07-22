@@ -28,7 +28,8 @@ def bias_variable(shape):
 
 
 def conv2d(layer, weights, stride, pad):
-    return tf.nn.conv2d(input=layer, filter=weights, strides=[1, stride, stride, 1], padding=pad)
+    layer = tf.pad(layer, [[0, 0], [pad, pad], [pad, pad], [0, 0]], "CONSTANT")
+    return tf.nn.conv2d(input=layer, filter=weights, strides=[1, stride, stride, 1], padding='SAME')
 
 
 def max_pool_2x2(layer):
@@ -40,11 +41,11 @@ def dropout(layer, keep_prob):
 
 def lrnmaxpool(layer,poolpad):
     layer = tf.nn.lrn(layer,alpha=1e-4,beta=0.75,depth_radius=2,bias=2.0) # local response normalization
-
-    layer = tf.nn.max_pool(layer,ksize=[1, 3, 3, 1],strides=[1, 2, 2, 1],padding=poolpad)
+    layer = tf.pad(layer, [[0, 0], [poolpad, poolpad], [poolpad, poolpad], [0, 0]], "CONSTANT")
+    layer = tf.nn.max_pool(layer,ksize=[1, 3, 3, 1],strides=[1, 2, 2, 1],padding='SAME')
     return layer
     
-def new_conv_layer(layer, num_input_channels, filter_size, num_filters, stride, use_pooling, pad=[[0, 0], [0, 0], [0, 0], [0, 0]], poolpad=[[0, 0], [0, 0], [0, 0], [0, 0]]):
+def new_conv_layer(layer, num_input_channels, filter_size, num_filters, stride, use_pooling, pad=0,  poolpad=0):
 
     weights = weight_variable(shape=[filter_size, filter_size, num_input_channels, num_filters])
 
@@ -132,8 +133,8 @@ def model(x, keep_prob, img_size, colour_channels, filter_size, neurons, num_cla
             num_filters=96,
             stride=4,
             use_pooling=True,
-            pad=[[0, 0], [0, 0], [0, 0], [0, 0]],
-            poolpad=[[0, 0], [0, 0], [0, 0], [0, 0]]
+            pad=0,
+            poolpad=0
         )
 #[[0, 0], [pad_top, pad_bottom], [pad_left, pad_right], [0, 0]] for padding
     with tf.name_scope('Conv2'):
@@ -144,8 +145,8 @@ def model(x, keep_prob, img_size, colour_channels, filter_size, neurons, num_cla
             num_filters=256,
             stride=1,
             use_pooling=True,
-            pad=[[0, 0], [2, 2], [2, 2], [0, 0]],
-            poolpad=[[0, 0], [0, 0], [0, 0], [0, 0]]
+            pad=2,
+            poolpad=0
         )
         
     with tf.name_scope('Conv3'):
@@ -156,7 +157,7 @@ def model(x, keep_prob, img_size, colour_channels, filter_size, neurons, num_cla
             num_filters=384,
             stride=1,
             use_pooling=False,
-            pad=[[0, 0], [2, 2], [2, 2], [0, 0]],
+            pad=2,
         )
         
     with tf.name_scope('Conv4'):
@@ -167,7 +168,7 @@ def model(x, keep_prob, img_size, colour_channels, filter_size, neurons, num_cla
             num_filters=384,
             stride=1,
             use_pooling=False,
-            pad=[[0, 0], [1, 1], [1, 1], [0, 0]]
+            pad=1
         )
 
     with tf.name_scope('Conv5'):
@@ -178,7 +179,7 @@ def model(x, keep_prob, img_size, colour_channels, filter_size, neurons, num_cla
             num_filters=256,
             stride=1,
             use_pooling=False,
-            pad=[[0, 0], [1, 1], [1, 1], [0, 0]]
+            pad=1
         )
 
     with tf.name_scope('Fully_Connected1'):
