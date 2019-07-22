@@ -44,7 +44,7 @@ def lrnmaxpool(layer,poolpad):
     layer = tf.nn.max_pool(layer,ksize=[1, 3, 3, 1],strides=[1, 2, 2, 1],padding=poolpad)
     return layer
     
-def new_conv_layer(layer, num_input_channels, filter_size, num_filters, stride, use_pooling=True, pad, poolpad):
+def new_conv_layer(layer, num_input_channels, filter_size, num_filters, stride, use_pooling, pad, poolpad):
 
     weights = weight_variable(shape=[filter_size, filter_size, num_input_channels, num_filters])
 
