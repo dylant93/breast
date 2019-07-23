@@ -22,7 +22,7 @@ def conv2d(layer, weights):
 
 
 def max_pool_2x2(layer):
-    return tf.nn.max_pool(value=layer, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
+    return tf.nn.max_pool(value=layer, ksize=[1, 3, 3, 1], strides=[1, 3, 3, 1], padding='SAME')
 
 
 def dropout(layer, keep_prob):
@@ -211,7 +211,7 @@ def restore_or_initialize(session, saver, checkpoint_dir):
         tf.global_variables_initializer().run()
 
 
-def train(img_dir, model_dir, img_size=64, colour_channels=3, batch_size=128, training_epochs=10):
+def train(img_dir, model_dir, img_size=64, colour_channels=3, batch_size=128, training_epochs=50):
 
     log_dir = os.path.join(os.path.abspath(model_dir), 'tensorflow/cnn/logs/cnn_with_summaries')
     checkpoint_dir = os.path.join(os.path.abspath(model_dir), 'tensorflow/cnn/model')
