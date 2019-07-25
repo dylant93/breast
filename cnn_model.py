@@ -133,7 +133,7 @@ def model(x, keep_prob, img_size, colour_channels, filter_size, neurons, num_cla
         layer_fc1 = new_fully_connected_layer(
             flat_layer,
             num_features,
-            num_outputs=128,
+            num_outputs=64,
             layer_id=1,
             summaries=True
         )
@@ -146,7 +146,7 @@ def model(x, keep_prob, img_size, colour_channels, filter_size, neurons, num_cla
 
         layer_fc2 = new_fully_connected_layer(
             dropout_layer,
-            num_inputs=128,
+            num_inputs=64,
             num_outputs=num_classes,
             use_relu=False,
             layer_id=2,
