@@ -254,7 +254,7 @@ def restore_or_initialize(session, saver, checkpoint_dir):
         tf.global_variables_initializer().run()
 
 
-def train(img_dir, model_dir, img_size=64, colour_channels=3, batch_size=128, training_epochs=50):
+def train(img_dir, model_dir, img_size=128, colour_channels=3, batch_size=128, training_epochs=50):
 
     log_dir = os.path.join(os.path.abspath(model_dir), 'tensorflow/cnn/logs/cnn_with_summaries')
     checkpoint_dir = os.path.join(os.path.abspath(model_dir), 'tensorflow/cnn/model')
