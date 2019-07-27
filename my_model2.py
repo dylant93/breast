@@ -131,7 +131,7 @@ def model(x, keep_prob, img_size, colour_channels, filter_size, neurons, num_cla
             num_input_channels=colour_channels,
             filter_size=3,
             num_filters=64,
-            stride=`1,
+            stride=1,
             use_pooling=True,
             f=2,
             s=2,
