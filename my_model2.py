@@ -142,7 +142,7 @@ def model(x, keep_prob, img_size, colour_channels, filter_size, neurons, num_cla
     with tf.name_scope('Conv2'):
         layer_conv2 = new_conv_layer(
             layer_conv1,
-            num_input_channels=64,
+            num_input_channels=128,
             filter_size=3,
             num_filters=256,
             stride=2,
@@ -156,7 +156,7 @@ def model(x, keep_prob, img_size, colour_channels, filter_size, neurons, num_cla
     with tf.name_scope('Conv3'):
         layer_conv3 = new_conv_layer(
             layer_conv2,
-            num_input_channels=128,
+            num_input_channels=256,
             filter_size=3,
             num_filters=256,
             stride=2,
