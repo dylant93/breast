@@ -129,7 +129,7 @@ def model(x, keep_prob, img_size, colour_channels, filter_size, neurons, num_cla
         layer_conv1 = new_conv_layer(
             x_image,
             num_input_channels=colour_channels,
-            filter_size=1,
+            filter_size=3,
             num_filters=64,
             stride=1,
             use_pooling=True,
@@ -143,12 +143,12 @@ def model(x, keep_prob, img_size, colour_channels, filter_size, neurons, num_cla
         layer_conv2 = new_conv_layer(
             layer_conv1,
             num_input_channels=64,
-            filter_size=2,
+            filter_size=3,
             num_filters=128,
-            stride=2,
+            stride=1,
             use_pooling=True,
             f=2,
-            s=1,
+            s=2,
             pad=0,
             poolpad=0
         )
@@ -157,9 +157,9 @@ def model(x, keep_prob, img_size, colour_channels, filter_size, neurons, num_cla
         layer_conv3 = new_conv_layer(
             layer_conv2,
             num_input_channels=128,
-            filter_size=2,
-            num_filters=256,
-            stride=2,
+            filter_size=3,
+            num_filters=128,
+            stride=1,
             use_pooling=True,
             f=2,
             s=2,
