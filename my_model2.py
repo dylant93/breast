@@ -133,7 +133,7 @@ def model(x, keep_prob, img_size, colour_channels, filter_size, neurons, num_cla
             num_filters=32,
             stride=1,
             use_pooling=True,
-            f=2,
+            f=1,
             s=1,
             pad=0,
             poolpad=0
@@ -143,9 +143,9 @@ def model(x, keep_prob, img_size, colour_channels, filter_size, neurons, num_cla
         layer_conv2 = new_conv_layer(
             layer_conv1,
             num_input_channels=32,
-            filter_size=5,
-            num_filters=128,
-            stride=2,
+            filter_size=3,
+            num_filters=32,
+            stride=1,
             use_pooling=True,
             f=1,
             s=1,
@@ -156,10 +156,10 @@ def model(x, keep_prob, img_size, colour_channels, filter_size, neurons, num_cla
     with tf.name_scope('Conv3'):
         layer_conv3 = new_conv_layer(
             layer_conv2,
-            num_input_channels=128,
-            filter_size=9,
-            num_filters=256,
-            stride=4,
+            num_input_channels=32,
+            filter_size=3,
+            num_filters=32,
+            stride=1,
             use_pooling=True,
             f=1,
             s=1,
@@ -174,7 +174,7 @@ def model(x, keep_prob, img_size, colour_channels, filter_size, neurons, num_cla
         layer_fc1 = new_fully_connected_layer(
             flat_layer,
             num_features,
-            num_outputs=256,
+            num_outputs=128,
             layer_id=1,
             summaries=True
         )
@@ -187,7 +187,7 @@ def model(x, keep_prob, img_size, colour_channels, filter_size, neurons, num_cla
 
         layer_fc2 = new_fully_connected_layer(
             layer_fc1,
-            num_inputs=256,
+            num_inputs=128,
             num_outputs=2,
             #use_relu=False,
             layer_id=2,
