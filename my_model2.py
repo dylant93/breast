@@ -129,11 +129,11 @@ def model(x, keep_prob, img_size, colour_channels, filter_size, neurons, num_cla
         layer_conv1 = new_conv_layer(
             x_image,
             num_input_channels=colour_channels,
-            filter_size=1,
-            num_filters=64,
-            stride=1,
+            filter_size=11,
+            num_filters=96,
+            stride=4,
             use_pooling=True,
-            f=2,
+            f=3,
             s=2,
             pad=0,
             poolpad=0
@@ -142,13 +142,13 @@ def model(x, keep_prob, img_size, colour_channels, filter_size, neurons, num_cla
     with tf.name_scope('Conv2'):
         layer_conv2 = new_conv_layer(
             layer_conv1,
-            num_input_channels=64,
-            filter_size=2,
-            num_filters=128,
-            stride=2,
+            num_input_channels=96,
+            filter_size=5,
+            num_filters=256,
+            stride=3,
             use_pooling=True,
-            f=2,
-            s=1,
+            f=3,
+            s=2,
             pad=0,
             poolpad=0
         )
@@ -156,13 +156,13 @@ def model(x, keep_prob, img_size, colour_channels, filter_size, neurons, num_cla
     with tf.name_scope('Conv3'):
         layer_conv3 = new_conv_layer(
             layer_conv2,
-            num_input_channels=128,
-            filter_size=2,
-            num_filters=256,
-            stride=2,
+            num_input_channels=256,
+            filter_size=3,
+            num_filters=384,
+            stride=1,
             use_pooling=True,
             f=2,
-            s=2,
+            s=1,
             pad=0,
         )
         
@@ -254,7 +254,7 @@ def restore_or_initialize(session, saver, checkpoint_dir):
         tf.global_variables_initializer().run()
 
 
-def train(img_dir, model_dir, img_size=32, colour_channels=3, batch_size=128, training_epochs=50):
+def train(img_dir, model_dir, img_size=227, colour_channels=3, batch_size=128, training_epochs=50):
 
     log_dir = os.path.join(os.path.abspath(model_dir), 'tensorflow/cnn/logs/cnn_with_summaries')
     checkpoint_dir = os.path.join(os.path.abspath(model_dir), 'tensorflow/cnn/model')
