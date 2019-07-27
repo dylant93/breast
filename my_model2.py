@@ -129,11 +129,11 @@ def model(x, keep_prob, img_size, colour_channels, filter_size, neurons, num_cla
         layer_conv1 = new_conv_layer(
             x_image,
             num_input_channels=colour_channels,
-            filter_size=5,
+            filter_size=3,
             num_filters=64,
-            stride=3,
+            stride=`1,
             use_pooling=True,
-            f=3,
+            f=2,
             s=2,
             pad=0,
             poolpad=0
@@ -145,10 +145,10 @@ def model(x, keep_prob, img_size, colour_channels, filter_size, neurons, num_cla
             num_input_channels=64,
             filter_size=3,
             num_filters=128,
-            stride=1,
+            stride=2,
             use_pooling=True,
             f=2,
-            s=1,
+            s=2,
             pad=0,
             poolpad=0
         )
@@ -159,7 +159,7 @@ def model(x, keep_prob, img_size, colour_channels, filter_size, neurons, num_cla
             num_input_channels=128,
             filter_size=3,
             num_filters=128,
-            stride=1,
+            stride=2,
             use_pooling=True,
             f=2,
             s=2,
@@ -174,7 +174,7 @@ def model(x, keep_prob, img_size, colour_channels, filter_size, neurons, num_cla
         layer_fc1 = new_fully_connected_layer(
             flat_layer,
             num_features,
-            num_outputs=128,
+            num_outputs=256,
             layer_id=1,
             summaries=True
         )
@@ -187,7 +187,7 @@ def model(x, keep_prob, img_size, colour_channels, filter_size, neurons, num_cla
 
         layer_fc2 = new_fully_connected_layer(
             layer_fc1,
-            num_inputs=128,
+            num_inputs=256,
             num_outputs=2,
             #use_relu=False,
             layer_id=2,
@@ -254,7 +254,7 @@ def restore_or_initialize(session, saver, checkpoint_dir):
         tf.global_variables_initializer().run()
 
 
-def train(img_dir, model_dir, img_size=128, colour_channels=3, batch_size=128, training_epochs=50):
+def train(img_dir, model_dir, img_size=64, colour_channels=3, batch_size=128, training_epochs=50):
 
     log_dir = os.path.join(os.path.abspath(model_dir), 'tensorflow/cnn/logs/cnn_with_summaries')
     checkpoint_dir = os.path.join(os.path.abspath(model_dir), 'tensorflow/cnn/model')
