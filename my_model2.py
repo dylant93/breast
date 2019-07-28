@@ -133,8 +133,8 @@ def model(x, keep_prob, img_size, colour_channels, filter_size, neurons, num_cla
             num_filters=32,
             stride=1,
             use_pooling=True,
-            f=1,
-            s=1,
+            f=2,
+            s=2,
             pad=0,
             poolpad=0
         )
@@ -161,8 +161,8 @@ def model(x, keep_prob, img_size, colour_channels, filter_size, neurons, num_cla
             num_filters=32,
             stride=1,
             use_pooling=True,
-            f=1,
-            s=1,
+            f=3,
+            s=3,
             pad=0,
         )
         
