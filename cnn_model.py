@@ -133,7 +133,7 @@ def model(x, keep_prob, img_size, colour_channels, filter_size, neurons, num_cla
         layer_fc1 = new_fully_connected_layer(
             flat_layer,
             num_features,
-            num_outputs=128,
+            num_outputs=1024,
             layer_id=1,
             summaries=True
         )
@@ -146,7 +146,7 @@ def model(x, keep_prob, img_size, colour_channels, filter_size, neurons, num_cla
 
         layer_fc2 = new_fully_connected_layer(
             dropout_layer,
-            num_inputs=128,
+            num_inputs=1024,
             num_outputs=num_classes,
             use_relu=False,
             layer_id=2,
@@ -211,7 +211,7 @@ def restore_or_initialize(session, saver, checkpoint_dir):
         tf.global_variables_initializer().run()
 
 
-def train(img_dir, model_dir, img_size=128, colour_channels=3, batch_size=128, training_epochs=50):
+def train(img_dir, model_dir, img_size=64, colour_channels=3, batch_size=128, training_epochs=50):
 
     log_dir = os.path.join(os.path.abspath(model_dir), 'tensorflow/cnn/logs/cnn_with_summaries')
     checkpoint_dir = os.path.join(os.path.abspath(model_dir), 'tensorflow/cnn/model')
