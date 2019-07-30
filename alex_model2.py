@@ -29,7 +29,7 @@ def bias_variable(shape):
 
 def conv2d(layer, weights, stride, pad):
     paddings = tf.constant([[pad, pad,], [pad, pad]])
-    layer = tf.pad(layer, [[0, 0], paddings , "CONSTANT")
+    layer = tf.pad(layer, paddings , "CONSTANT")
     return tf.nn.conv2d(input=layer, filter=weights, strides=[1, stride, stride, 1], padding='SAME')
 
 
