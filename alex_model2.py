@@ -28,7 +28,8 @@ def bias_variable(shape):
 
 
 def conv2d(layer, weights, stride, pad):
-    layer = tf.pad(layer, [[0, 0], [pad, pad], [pad, pad], [0, 0]], "CONSTANT")
+    paddings = tf.constant([[pad, pad,], [pad, pad]])
+    layer = tf.pad(layer, [[0, 0], paddings , "CONSTANT")
     return tf.nn.conv2d(input=layer, filter=weights, strides=[1, stride, stride, 1], padding='SAME')
 
 
@@ -41,7 +42,7 @@ def dropout(layer, keep_prob):
 
 def lrnmaxpool(layer,poolpad):
     layer = tf.nn.lrn(layer,alpha=1e-4,beta=0.75,depth_radius=2,bias=2.0) # local response normalization
-    layer = tf.pad(layer, [[0, 0], [poolpad, poolpad], [poolpad, poolpad], [0, 0]], "CONSTANT")
+    #layer = tf.pad(layer, [[0, 0], [poolpad, poolpad], [poolpad, poolpad], [0, 0]], "CONSTANT")
     layer = tf.nn.max_pool(layer,ksize=[1, 3, 3, 1],strides=[1, 2, 2, 1],padding='SAME')
     return layer
     
@@ -191,7 +192,8 @@ def model(x, keep_prob, img_size, colour_channels, filter_size, neurons, num_cla
             num_features,
             num_outputs=4096,
             layer_id=1,
-            summaries=True
+	    use_relu=True
+            #summaries=True
         )
 
 #    with tf.name_scope('Dropout'):
@@ -204,9 +206,9 @@ def model(x, keep_prob, img_size, colour_channels, filter_size, neurons, num_cla
             layer_fc1,
             num_inputs=4096,
             num_outputs=4096,
-            #use_relu=False,
+            use_relu=True,
             layer_id=2,
-            summaries=True
+            #summaries=True
         )
     with tf.name_scope('Fully_Connected3'):
 
@@ -214,9 +216,9 @@ def model(x, keep_prob, img_size, colour_channels, filter_size, neurons, num_cla
             layer_fc2,
             num_inputs=4096,
             num_outputs=2,
-            use_relu=False,
+            use_relu=True,
             layer_id=3,
-            summaries=True
+            #summaries=True
         )   
         
 
